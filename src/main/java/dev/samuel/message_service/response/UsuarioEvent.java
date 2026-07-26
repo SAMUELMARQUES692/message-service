@@ -1,6 +1,6 @@
 package dev.samuel.message_service.response;
 
-public record UsuarioCadastradoEvent(
+public record UsuarioEvent(
         String nome,
         String email
 ) {}

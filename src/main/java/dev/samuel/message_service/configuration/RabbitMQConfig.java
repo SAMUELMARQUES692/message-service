@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     public static final String EXCHANGE = "prolab.exchange";
-    public static final String QUEUE_USUARIO_CADASTRADO = "usuario.cadastrado.queue";
-    public static final String ROUTING_KEY_USUARIO_CADASTRADO = "usuario.cadastrado";
+    public static final String QUEUE_USUARIO = "usuario.queue";
+    public static final String ROUTING_KEY_USUARIO = "usuario.mensagem";
 
     @Bean
     public TopicExchange exchange() {
@@ -24,15 +24,15 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue usuarioCadastradoQueue() {
-        return new Queue(QUEUE_USUARIO_CADASTRADO, true);
+    public Queue usuarioQueue() {
+        return new Queue(QUEUE_USUARIO, true);
     }
 
     @Bean
-    public Binding binding(Queue usuarioCadastradoQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(usuarioCadastradoQueue)
+    public Binding binding(Queue usuarioQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(usuarioQueue)
                 .to(exchange)
-                .with(ROUTING_KEY_USUARIO_CADASTRADO);
+                .with(ROUTING_KEY_USUARIO);
     }
 
     @Bean
