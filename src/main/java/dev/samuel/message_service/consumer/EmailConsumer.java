@@ -27,7 +27,7 @@ public class EmailConsumer {
         emailService.sendEmail(email);
     }
 
-    @RabbitListener(queues = "usuario.queue")
+    @RabbitListener(queues = "usuario.atualizado.queue")
     public void listenUsuarioAtualizado(@Payload UsuarioEvent evento) {
         Email email = Email.builder()
                 .emailTo(evento.email())

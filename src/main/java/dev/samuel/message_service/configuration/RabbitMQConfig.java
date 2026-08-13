@@ -17,6 +17,8 @@ public class RabbitMQConfig {
     public static final String EXCHANGE = "prolab.exchange";
     public static final String QUEUE_USUARIO = "usuario.queue";
     public static final String ROUTING_KEY_USUARIO = "usuario.mensagem";
+    public static final String ROUTING_KEY_USUARIO_ATUALIZADO = "usuario.atualizado";
+    public static final String QUEUE_USUARIO_ATUALIZADO = "usuario.atualizado.queue";
 
     @Bean
     public TopicExchange exchange() {
@@ -29,10 +31,22 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue usuarioAtualizadoQueue() {
+        return new Queue(QUEUE_USUARIO_ATUALIZADO, true);
+    }
+
+    @Bean
     public Binding binding(Queue usuarioQueue, TopicExchange exchange) {
         return BindingBuilder.bind(usuarioQueue)
                 .to(exchange)
                 .with(ROUTING_KEY_USUARIO);
+    }
+
+    @Bean
+    public Binding bindingAtualizado(Queue usuarioAtualizadoQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(usuarioAtualizadoQueue)
+                .to(exchange)
+                .with(ROUTING_KEY_USUARIO_ATUALIZADO);
     }
 
     @Bean
